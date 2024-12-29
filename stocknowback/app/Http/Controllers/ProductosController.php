@@ -2,66 +2,92 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Productos;
+use App\Models\Producto;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreProductosRequest;
-use App\Http\Requests\UpdateProductosRequest;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProductosController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Almacenar un nuevo producto en la base de datos.
      */
-    public function index()
+    public function store(Request $request)
     {
-        //
+
+
+        // Procesar y almacenar la imagen si fue enviada
+        $imagePath = null;
+
+        if ($request->hasFile('imagen')) {
+            // Guardar la imagen en el almacenamiento público en la carpeta 'imagenes_productos'
+
+            $imagePath = $request->file('imagen')->store('imagenes_productos', 'public');
+        }
+
+        // Crear el producto en la base de datos
+        $producto =  Producto::create([
+            'nombre' => $request->nombre,
+            'precio' => $request->precio,
+            'pasillo_id' => $request->pasillo_id,
+            'stock' => $request->stock,
+            'imagen' => $imagePath, // Guardar la ruta de la imagen
+        ]);
+        // Redirigir con un mensaje de éxito
+
+        return response()->json(array('success' => true));
+    }
+    /**
+     * Actualizar un producto en la base de datos.
+     */
+    public function update(Request $request, Producto $productos)
+    {
+        $request->validate([
+            'nombre' => 'required|string|max:255',
+            'precio' => 'required|numeric',
+            'pasillo_id' => 'required|exists:pasillos,id',
+            'stock' => 'required|integer',
+            'imagen' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        // Procesar la imagen si se envía una nueva
+        $imagePath = $productos->imagen; // Mantener la imagen actual si no se sube una nueva
+        if ($request->hasFile('imagen')) {
+            // Eliminar la imagen antigua si existe
+            if ($productos->imagen) {
+                Storage::disk('public')->delete($productos->imagen);
+            }
+
+            // Guardar la nueva imagen
+            $imagePath = $request->file('imagen')->store('imagenes_productos', 'public');
+        }
+
+        // Actualizar los datos del producto
+        $productos->update([
+            'nombre' => $request->nombre,
+            'precio' => $request->precio,
+            'pasillo_id' => $request->pasillo_id,
+            'stock' => $request->stock,
+            'imagen' => $imagePath, // Actualizar la imagen
+        ]);
+
+        // Redirigir con un mensaje de éxito
+        //  return redirect()->route('productos.index')->with('success', 'Producto actualizado exitosamente.');
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Eliminar un producto de la base de datos.
      */
-    public function create()
+    public function destroy(Producto $productos)
     {
-        //
-    }
+        // Eliminar la imagen asociada al producto
+        if ($productos->imagen) {
+            Storage::disk('public')->delete($productos->imagen);
+        }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreProductosRequest $request)
-    {
-        //
-    }
+        // Eliminar el producto
+        $productos->delete();
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Productos $productos)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Productos $productos)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateProductosRequest $request, Productos $productos)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Productos $productos)
-    {
-        //
+        // return redirect()->route('productos.index')->with('success', 'Producto eliminado exitosamente.');
     }
 }

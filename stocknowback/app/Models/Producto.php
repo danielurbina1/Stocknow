@@ -18,6 +18,7 @@ class Producto extends Model
         'precio',
         'pasillo_id',
         'stock', // Añadir stock
+        'imagen',
     ];
 
     /**

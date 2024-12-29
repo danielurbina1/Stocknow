@@ -13,6 +13,7 @@ return new class extends Migration {
             $table->decimal('precio', 8, 2); // Precio del producto
             $table->unsignedBigInteger('pasillo_id'); // Relación con la tabla pasillos
             $table->integer('stock')->default(0); // Stock del producto
+            $table->string('imagen')->nullable();
             $table->timestamps();
 
             // Definir la clave foránea

@@ -1,14 +1,43 @@
 // src/components/Header.jsx
 import React from "react";
+import axios from "axios";
 import { useNavigate } from "react-router-dom"; // Importamos el hook de navegación
-import logo from "../imagenes/logos.jpeg";
+import Dashboard from "../pages/Dashboard";
 
 const Header = () => {
   const navigate = useNavigate(); // Hook para manejar la navegación
 
+  // Constantes para las rutas
+  const ROUTES = {
+    pasillos: "/pasillos",
+    dashboard: "/dashboard",
+    perfil: "/perfil",
+    login: "/", // Ruta del login
+  };
+
   const handleLogout = () => {
+    const token = localStorage.getItem("token"); // Obtener el token de la sesión
+    axios
+      .post(
+        "http://localhost:8000/api/logout",
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // Agregar el token al encabezado
+          },
+        }
+      )
+      .then((res) => {
+        if (!!res.data.message) {
+          localStorage.removeItem("token");
+          navigate(ROUTES.login); // Redirige al login
+        }
+      });
     // Lógica adicional para cerrar sesión, como limpiar tokens o estado
-    navigate("/"); // Redirige al login
+  };
+
+  const navigateTo = (route) => {
+    navigate(route); // Redirige a la ruta específica
   };
 
   return (
@@ -37,38 +66,29 @@ const Header = () => {
           </button>
 
           <ul className="lg:flex lg:gap-x-5 max-lg:space-y-3 max-lg:fixed max-lg:bg-white max-lg:w-1/2 max-lg:min-w-[300px] max-lg:top-0 max-lg:left-0 max-lg:p-6 max-lg:h-full max-lg:shadow-md max-lg:overflow-auto z-50">
-            <li className="mb-6 hidden max-lg:block">
-              <a href="javascript:void(0)">
-                <img
-                  src="https://readymadeui.com/readymadeui.svg"
-                  alt="logo"
-                  className="w-36"
-                />
-              </a>
-            </li>
             <li className="max-lg:border-b max-lg:py-3 px-3">
-              <a
-                href="javascript:void(0)"
+              <button
+                onClick={() => navigateTo(ROUTES.pasillos)}
                 className="hover:text-[#007bff] text-[#ffffff] block font-semibold text-[15px]"
               >
                 Pasillos
-              </a>
+              </button>
             </li>
             <li className="max-lg:border-b max-lg:py-3 px-3">
-              <a
-                href="javascript:void(0)"
-                className="hover:text-[#007bff] text-[#fff] block font-semibold text-[15px]"
+              <button
+                onClick={() => navigateTo(ROUTES.dashboard)}
+                className="hover:text-[#007bff] text-[#ffffff] block font-semibold text-[15px]"
               >
                 Productos
-              </a>
+              </button>
             </li>
             <li className="max-lg:border-b max-lg:py-3 px-3">
-              <a
-                href="javascript:void(0)"
-                className="hover:text-[#007bff] text-[#fff] block font-semibold text-[15px]"
+              <button
+                onClick={() => navigateTo(ROUTES.perfil)}
+                className="hover:text-[#007bff] text-[#ffffff] block font-semibold text-[15px]"
               >
                 Perfil
-              </a>
+              </button>
             </li>
           </ul>
         </div>

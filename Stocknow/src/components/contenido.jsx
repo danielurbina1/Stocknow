@@ -57,9 +57,8 @@ const Content = () => {
     if (pasilloId === null) {
       setFilteredProductos(pasillos.flatMap((pasillo) => pasillo.productos)); // Mostrar todos los productos
     } else {
-      const selectedProducts = pasillos
-        .find((pasillo) => pasillo.id === pasilloId)
-        ?.productos || [];
+      const selectedProducts =
+        pasillos.find((pasillo) => pasillo.id === pasilloId)?.productos || [];
       setFilteredProductos(selectedProducts);
     }
   };
@@ -81,7 +80,7 @@ const Content = () => {
       </div>
 
       {/* Lista de pasillos */}
-      <div className="mb-5">
+      <div className="mb-8 flex gap-2 flex-wrap">
         <button
           className={`px-4 py-2 rounded-md ${
             selectedPasillo === null
@@ -95,7 +94,7 @@ const Content = () => {
         {pasillos.map((pasillo) => (
           <button
             key={pasillo.id}
-            className={`ml-2 px-4 py-2 rounded-md ${
+            className={` px-4 py-2 rounded-md ${
               selectedPasillo === pasillo.id
                 ? "bg-indigo-600 text-white"
                 : "bg-gray-300 text-black"
@@ -118,7 +117,7 @@ const Content = () => {
               <div className="relative">
                 <img
                   className="w-full"
-                  src={`http://localhost/storage/${producto.imagen}`} // Actualiza la ruta para la imagen
+                  src={`http://localhost:8000/storage/${producto.imagen}`} // Actualiza la ruta para la imagen
                   alt={producto.nombre}
                 />
                 <div className="hover:bg-transparent transition duration-300 absolute bottom-0 top-0 right-0 left-0 bg-gray-900 opacity-25"></div>

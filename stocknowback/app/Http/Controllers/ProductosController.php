@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Producto;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -14,29 +13,27 @@ class ProductosController extends Controller
      */
     public function store(Request $request)
     {
-
-
         // Procesar y almacenar la imagen si fue enviada
         $imagePath = null;
 
         if ($request->hasFile('imagen')) {
             // Guardar la imagen en el almacenamiento público en la carpeta 'imagenes_productos'
-
             $imagePath = $request->file('imagen')->store('imagenes_productos', 'public');
         }
 
         // Crear el producto en la base de datos
-        $producto =  Producto::create([
+        $producto = Producto::create([
             'nombre' => $request->nombre,
             'precio' => $request->precio,
             'pasillo_id' => $request->pasillo_id,
             'stock' => $request->stock,
             'imagen' => $imagePath, // Guardar la ruta de la imagen
         ]);
-        // Redirigir con un mensaje de éxito
 
-        return response()->json(array('success' => true));
+        // Redirigir con un mensaje de éxito
+        return response()->json(['success' => true]);
     }
+
     /**
      * Actualizar un producto en la base de datos.
      */
@@ -70,9 +67,6 @@ class ProductosController extends Controller
             'stock' => $request->stock,
             'imagen' => $imagePath, // Actualizar la imagen
         ]);
-
-        // Redirigir con un mensaje de éxito
-        //  return redirect()->route('productos.index')->with('success', 'Producto actualizado exitosamente.');
     }
 
     /**
@@ -87,7 +81,22 @@ class ProductosController extends Controller
 
         // Eliminar el producto
         $productos->delete();
+    }
 
-        // return redirect()->route('productos.index')->with('success', 'Producto eliminado exitosamente.');
+    /**
+     * Obtener productos por pasillo.
+     */
+    public function filterByPasillo($id)
+    {
+        // Obtener los productos asociados al pasillo
+        $productos = Producto::where('pasillo_id', $id)->get();
+
+        if ($productos->isEmpty()) {
+            return response()->json([
+                'message' => 'No se encontraron productos para este pasillo.',
+            ], 404);
+        }
+
+        return response()->json($productos);
     }
 }

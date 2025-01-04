@@ -3,9 +3,10 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const Content = () => {
-  const [pasillos, setPasillos] = useState([]); // Estado para almacenar los pasillos y productos
+  const [pasillos, setPasillos] = useState([]); // Estado para almacenar los pasillos
   const [searchTerm, setSearchTerm] = useState(""); // Estado para el término de búsqueda
   const [filteredProductos, setFilteredProductos] = useState([]); // Productos filtrados
+  const [selectedPasillo, setSelectedPasillo] = useState(null); // Pasillo seleccionado
   const navigate = useNavigate();
 
   // Petición al backend para obtener los pasillos y productos
@@ -48,6 +49,21 @@ const Content = () => {
     setFilteredProductos(filtered);
   };
 
+  // Manejar selección de pasillo
+  const handlePasilloSelect = (pasilloId) => {
+    setSelectedPasillo(pasilloId);
+
+    // Filtrar productos por pasillo seleccionado
+    if (pasilloId === null) {
+      setFilteredProductos(pasillos.flatMap((pasillo) => pasillo.productos)); // Mostrar todos los productos
+    } else {
+      const selectedProducts = pasillos
+        .find((pasillo) => pasillo.id === pasilloId)
+        ?.productos || [];
+      setFilteredProductos(selectedProducts);
+    }
+  };
+
   return (
     <div className="max-w-screen-xl mx-auto p-5 sm:p-10 md:p-16">
       <div className="border-b mb-5 flex justify-between items-center text-sm">
@@ -64,6 +80,34 @@ const Content = () => {
         />
       </div>
 
+      {/* Lista de pasillos */}
+      <div className="mb-5">
+        <button
+          className={`px-4 py-2 rounded-md ${
+            selectedPasillo === null
+              ? "bg-indigo-600 text-white"
+              : "bg-gray-300 text-black"
+          }`}
+          onClick={() => handlePasilloSelect(null)}
+        >
+          Todos
+        </button>
+        {pasillos.map((pasillo) => (
+          <button
+            key={pasillo.id}
+            className={`ml-2 px-4 py-2 rounded-md ${
+              selectedPasillo === pasillo.id
+                ? "bg-indigo-600 text-white"
+                : "bg-gray-300 text-black"
+            }`}
+            onClick={() => handlePasilloSelect(pasillo.id)}
+          >
+            {pasillo.nombre}
+          </button>
+        ))}
+      </div>
+
+      {/* Productos */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-10">
         {filteredProductos.length > 0 ? (
           filteredProductos.map((producto) => (

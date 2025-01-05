@@ -49,4 +49,11 @@ class AuthController extends Controller
             'user' => $user, // Aquí se devuelve el usuario completo
         ]);
     }
+    public function logout(Request $request)
+    {
+        // Elimina el token de acceso del usuario autenticado
+        $request->user()->currentAccessToken()->delete();
+
+        return response()->json(['message' => 'Sesión cerrada correctamente.']);
+    }
 }

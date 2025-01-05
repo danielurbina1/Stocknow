@@ -19,11 +19,11 @@ class ProductosSeeder extends Seeder
                 case 'Pasta':
                     Producto::create([
                         'id' => 10001,
-                        'nombre' => 'ALCAMPO Pasta macarrón paquete 1 kg',
+                        'nombre' => 'Pasta macarrón paquete 1 kg',
                         'precio' => 1.50,
                         'pasillo_id' => $pasillo->id,
                         'stock' => 120,
-                        'imagen' => 'imagenes_productos/probar.jpg',
+                        'imagen' => 'imagenes_productos/Pasta macarrón paquete 1 kg.webp',
                     ]);
                     Producto::create([
                         'id' => 10002,
@@ -31,23 +31,23 @@ class ProductosSeeder extends Seeder
                         'precio' => 1.80,
                         'pasillo_id' => $pasillo->id,
                         'stock' => 150,
-                        'imagen' => 'imagenes_productos/pasta_espagueti_1kg.jpg',
+                        'imagen' => 'imagenes_productos/Pasta espagueti paquete 1 kg.webp',
                     ]);
                     Producto::create([
                         'id' => 10003,
-                        'nombre' => 'ALCAMPO Pasta tiburón',
+                        'nombre' => 'Pasta tiburón',
                         'precio' => 2.00,
                         'pasillo_id' => $pasillo->id,
                         'stock' => 90,
-                        'imagen' => 'imagenes_productos/pasta_tiburon.jpg',
+                        'imagen' => 'imagenes_productos/Pasta tiburón.webp',
                     ]);
                     Producto::create([
                         'id' => 10004,
-                        'nombre' => 'Arroz largo PRODUCTO',
+                        'nombre' => 'Arroz largo ',
                         'precio' => 1.60,
                         'pasillo_id' => $pasillo->id,
                         'stock' => 200,
-                        'imagen' => 'imagenes_productos/arroz_largo.jpg',
+                        'imagen' => 'imagenes_productos/Arroz largo.webp',
                     ]);
                     Producto::create([
                         'id' => 10005,
@@ -55,23 +55,23 @@ class ProductosSeeder extends Seeder
                         'precio' => 2.20,
                         'pasillo_id' => $pasillo->id,
                         'stock' => 100,
-                        'imagen' => 'imagenes_productos/pasta_tallarín.jpg',
+                        'imagen' => 'imagenes_productos/Pasta tallarín.webp',
                     ]);
                     Producto::create([
                         'id' => 10006,
-                        'nombre' => 'Pasta de coditos',
+                        'nombre' => 'Pasta espiral con vegetales',
                         'precio' => 1.40,
                         'pasillo_id' => $pasillo->id,
                         'stock' => 130,
-                        'imagen' => 'imagenes_productos/pasta_coditos.jpg',
+                        'imagen' => 'imagenes_productos/Pasta espiral con vegetales.webp',
                     ]);
                     Producto::create([
                         'id' => 10007,
-                        'nombre' => 'Macarrones en forma de tubo',
+                        'nombre' => 'Pasta de sémola de trigo duro',
                         'precio' => 1.70,
                         'pasillo_id' => $pasillo->id,
                         'stock' => 110,
-                        'imagen' => 'imagenes_productos/macarrones_tubo.jpg',
+                        'imagen' => 'imagenes_productos/Pasta de sémola de trigo duro.webp',
                     ]);
                     Producto::create([
                         'id' => 10008,
@@ -79,7 +79,7 @@ class ProductosSeeder extends Seeder
                         'precio' => 1.20,
                         'pasillo_id' => $pasillo->id,
                         'stock' => 160,
-                        'imagen' => 'imagenes_productos/pasta_sopa_fideos.jpg',
+                        'imagen' => 'imagenes_productos/Pasta de sopa fideos.webp',
                     ]);
                     break;
 
@@ -90,7 +90,7 @@ class ProductosSeeder extends Seeder
                         'precio' => 2.50,
                         'pasillo_id' => $pasillo->id,
                         'stock' => 80,
-                        'imagen' => 'imagenes_productos/salsa_soja_kikkoman.jpg',
+                        'imagen' => 'imagenes_productos/Salsa de soja Kikkoman.webp',
                     ]);
                     Producto::create([
                         'id' => 20002,
@@ -98,7 +98,7 @@ class ProductosSeeder extends Seeder
                         'precio' => 3.00,
                         'pasillo_id' => $pasillo->id,
                         'stock' => 60,
-                        'imagen' => 'imagenes_productos/salsa_teriyaki.jpg',
+                        'imagen' => 'imagenes_productos/Salsa Teriyaki japonesa.webp',
                     ]);
                     Producto::create([
                         'id' => 20003,
@@ -106,7 +106,7 @@ class ProductosSeeder extends Seeder
                         'precio' => 1.80,
                         'pasillo_id' => $pasillo->id,
                         'stock' => 200,
-                        'imagen' => 'imagenes_productos/tortillas_maiz_mexicanas.jpg',
+                        'imagen' => 'imagenes_productos/Tortillas de maíz mexicanas.webp',
                     ]);
                     Producto::create([
                         'id' => 20004,
@@ -114,39 +114,39 @@ class ProductosSeeder extends Seeder
                         'precio' => 2.80,
                         'pasillo_id' => $pasillo->id,
                         'stock' => 75,
-                        'imagen' => 'imagenes_productos/wasabi_pasta.jpg',
+                        'imagen' => 'imagenes_productos/Wasabi en pasta.webp',
                     ]);
                     Producto::create([
                         'id' => 20005,
-                        'nombre' => 'Pasta de curry verde tailandesa',
+                        'nombre' => 'Pasta de curry ',
                         'precio' => 3.20,
                         'pasillo_id' => $pasillo->id,
                         'stock' => 50,
-                        'imagen' => 'imagenes_productos/curry_verde_tailandes.jpg',
+                        'imagen' => 'imagenes_productos/Pasta de curry.webp',
                     ]);
                     Producto::create([
                         'id' => 20006,
-                        'nombre' => 'Arroz jazmín tailandés',
+                        'nombre' => 'Salsa de guacamole',
                         'precio' => 2.30,
                         'pasillo_id' => $pasillo->id,
                         'stock' => 120,
-                        'imagen' => 'imagenes_productos/arroz_jazmin_tailandes.jpg',
+                        'imagen' => 'imagenes_productos/Salsa de guacamole.webp',
                     ]);
                     Producto::create([
                         'id' => 20007,
-                        'nombre' => 'Curry en polvo de la India',
+                        'nombre' => 'nachos fritos de maíz',
                         'precio' => 1.90,
                         'pasillo_id' => $pasillo->id,
                         'stock' => 90,
-                        'imagen' => 'imagenes_productos/curry_india.jpg',
+                        'imagen' => 'imagenes_productos/nachos fritos de maíz.webp',
                     ]);
                     Producto::create([
                         'id' => 20008,
-                        'nombre' => 'Té verde japonés en hojas',
+                        'nombre' => 'Frijoles rojos guisados',
                         'precio' => 4.00,
                         'pasillo_id' => $pasillo->id,
                         'stock' => 65,
-                        'imagen' => 'imagenes_productos/te_verde_japones.jpg',
+                        'imagen' => 'imagenes_productos/Frijoles rojos guisados.webp',
                     ]);
                     break;
 
@@ -157,7 +157,7 @@ class ProductosSeeder extends Seeder
                         'precio' => 5.50,
                         'pasillo_id' => $pasillo->id,
                         'stock' => 100,
-                        'imagen' => 'imagenes_productos/cafe_arabica.jpg',
+                        'imagen' => 'imagenes_productos/Café molido 100% arábica.webp',
                     ]);
                     Producto::create([
                         'id' => 30002,
@@ -165,7 +165,7 @@ class ProductosSeeder extends Seeder
                         'precio' => 3.80,
                         'pasillo_id' => $pasillo->id,
                         'stock' => 150,
-                        'imagen' => 'imagenes_productos/cafe_expreso_capsulas.jpg',
+                        'imagen' => 'imagenes_productos/Café expreso en cápsulas.webp',
                     ]);
                     Producto::create([
                         'id' => 30003,
@@ -173,7 +173,7 @@ class ProductosSeeder extends Seeder
                         'precio' => 4.20,
                         'pasillo_id' => $pasillo->id,
                         'stock' => 120,
-                        'imagen' => 'imagenes_productos/cafe_descafeinado.jpg',
+                        'imagen' => 'imagenes_productos/Café descafeinado.webp',
                     ]);
                     Producto::create([
                         'id' => 30004,
@@ -181,7 +181,7 @@ class ProductosSeeder extends Seeder
                         'precio' => 2.50,
                         'pasillo_id' => $pasillo->id,
                         'stock' => 130,
-                        'imagen' => 'imagenes_productos/cafe_instantaneo.jpg',
+                        'imagen' => 'imagenes_productos/Café instantáneo soluble.webp',
                     ]);
                     Producto::create([
                         'id' => 30005,
@@ -189,23 +189,23 @@ class ProductosSeeder extends Seeder
                         'precio' => 6.00,
                         'pasillo_id' => $pasillo->id,
                         'stock' => 80,
-                        'imagen' => 'imagenes_productos/cafe_grano_lavazza.jpg',
+                        'imagen' => 'imagenes_productos/Café en grano Lavazza.webp',
                     ]);
                     Producto::create([
                         'id' => 30006,
-                        'nombre' => 'Café de Colombia 100% orgánico',
+                        'nombre' => 'Café de Colombia',
                         'precio' => 5.00,
                         'pasillo_id' => $pasillo->id,
                         'stock' => 150,
-                        'imagen' => 'imagenes_productos/cafe_colombia_organico.jpg',
+                        'imagen' => 'imagenes_productos/Café de Colombia.webp',
                     ]);
                     Producto::create([
                         'id' => 30007,
-                        'nombre' => 'Café filtrado gourmet',
+                        'nombre' => ' Café en cápsulas con leche',
                         'precio' => 4.50,
                         'pasillo_id' => $pasillo->id,
                         'stock' => 100,
-                        'imagen' => 'imagenes_productos/cafe_filtrado_gourmet.jpg',
+                        'imagen' => 'imagenes_productos/Café en cápsulas con leche.webp',
                     ]);
                     Producto::create([
                         'id' => 30008,
@@ -213,7 +213,7 @@ class ProductosSeeder extends Seeder
                         'precio' => 3.00,
                         'pasillo_id' => $pasillo->id,
                         'stock' => 160,
-                        'imagen' => 'imagenes_productos/te_verde_bolsitas.jpg',
+                        'imagen' => 'imagenes_productos/Té verde en bolsitas.webp',
                     ]);
                     break;
 
@@ -224,7 +224,7 @@ class ProductosSeeder extends Seeder
                         'precio' => 3.50,
                         'pasillo_id' => $pasillo->id,
                         'stock' => 80,
-                        'imagen' => 'imagenes_productos/arroz_integral.jpg',
+                        'imagen' => 'imagenes_productos/Arroz integral ecológico.webp',
                     ]);
                     Producto::create([
                         'id' => 40002,
@@ -232,7 +232,7 @@ class ProductosSeeder extends Seeder
                         'precio' => 2.60,
                         'pasillo_id' => $pasillo->id,
                         'stock' => 100,
-                        'imagen' => 'imagenes_productos/lentejas_ecologicas.jpg',
+                        'imagen' => 'imagenes_productos/Lentejas ecológicas.webp',
                     ]);
                     Producto::create([
                         'id' => 40003,
@@ -240,7 +240,7 @@ class ProductosSeeder extends Seeder
                         'precio' => 5.80,
                         'pasillo_id' => $pasillo->id,
                         'stock' => 60,
-                        'imagen' => 'imagenes_productos/aceite_oliva_ecologico.jpg',
+                        'imagen' => 'imagenes_productos/Aceite de oliva virgen extra ecológico.webp',
                     ]);
                     Producto::create([
                         'id' => 40004,
@@ -248,7 +248,7 @@ class ProductosSeeder extends Seeder
                         'precio' => 2.40,
                         'pasillo_id' => $pasillo->id,
                         'stock' => 120,
-                        'imagen' => 'imagenes_productos/leche_almendras_sin_azucar.jpg',
+                        'imagen' => 'imagenes_productos/Leche de almendras sin azúcar.webp',
                     ]);
                     Producto::create([
                         'id' => 40005,
@@ -256,7 +256,7 @@ class ProductosSeeder extends Seeder
                         'precio' => 3.00,
                         'pasillo_id' => $pasillo->id,
                         'stock' => 150,
-                        'imagen' => 'imagenes_productos/pasta_espelta_ecologica.jpg',
+                        'imagen' => 'imagenes_productos/Pasta de espelta ecológica.webp',
                     ]);
                     Producto::create([
                         'id' => 40006,
@@ -264,7 +264,7 @@ class ProductosSeeder extends Seeder
                         'precio' => 3.20,
                         'pasillo_id' => $pasillo->id,
                         'stock' => 90,
-                        'imagen' => 'imagenes_productos/galletas_integrales_sin_azucar.jpg',
+                        'imagen' => 'imagenes_productos/Galletas integrales sin azúcar.webp',
                     ]);
                     Producto::create([
                         'id' => 40007,
@@ -272,15 +272,15 @@ class ProductosSeeder extends Seeder
                         'precio' => 4.50,
                         'pasillo_id' => $pasillo->id,
                         'stock' => 75,
-                        'imagen' => 'imagenes_productos/muesli_ecologico_sin_gluten.jpg',
+                        'imagen' => 'imagenes_productos/Muesli ecológico sin gluten.webp',
                     ]);
                     Producto::create([
                         'id' => 40008,
-                        'nombre' => 'Sopa de miso ecológica',
+                        'nombre' => 'Cereales integrales ecologicos',
                         'precio' => 3.80,
                         'pasillo_id' => $pasillo->id,
                         'stock' => 60,
-                        'imagen' => 'imagenes_productos/sopa_miso_ecologica.jpg',
+                        'imagen' => 'imagenes_productos/Cereales integrales ecologicos.webp',
                     ]);
                     break;
 

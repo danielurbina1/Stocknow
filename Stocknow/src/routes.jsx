@@ -6,6 +6,7 @@ import UserManagement from "./pages/UserManagement";
 import Alerts from "./pages/Alerts";
 import ProductSearch from "./pages/ProductSearch";
 import Perfil from "./pages/Perfil";
+import Administrar from "./pages/Administrar";
 
 export const routes = [
   { path: "/", component: <Login /> },
@@ -14,6 +15,6 @@ export const routes = [
   { path: "/users", component: <UserManagement /> },
   { path: "/alerts", component: <Alerts /> },
   { path: "/product-search", component: <ProductSearch /> },
-  { path: "/perfil", component: <Perfil/> },
-
+  { path: "/perfil", component: <Perfil /> },
+  { path: "/administrar", component: <Administrar /> },
 ];

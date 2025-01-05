@@ -23,8 +23,7 @@ class AuthController extends Controller
         ]);
     
         // Buscar al usuario por email
-        $user = User::where('email', $request->email)->first();
-    
+        $user = User::with('role')->where('email', $request->email)->first();    
         // Verificar si el usuario existe
         if (!$user) {
             return response()->json([

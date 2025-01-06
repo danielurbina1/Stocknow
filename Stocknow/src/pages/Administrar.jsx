@@ -54,7 +54,7 @@ const Users = () => {
   return (
     <div className="bg-gray-800 text-gray-200 min-h-screen">
       <Header />
-      <h1 className="text-3xl font-bold text-center mb-8">
+      <h1 className="text-3xl font-bold text-center mt-8 mb-8">
         Gestión de Usuarios
       </h1>
 
@@ -135,18 +135,20 @@ const Users = () => {
         <h2 className="text-xl font-semibold mb-4">Lista de Usuarios</h2>
         <table className="w-full border-collapse">
           <thead>
-            <tr>
-              <th className="border p-2">Nombre</th>
-              <th className="border p-2">Correo</th>
-              <th className="border p-2">Rol</th>
+            <tr className="bg-gray-700 text-gray-100">
+              <th className="border border-gray-600 p-3 text-left">Nombre</th>
+              <th className="border border-gray-600 p-3 text-left">Correo</th>
+              <th className="border border-gray-600 p-3 text-left">Rol</th>
             </tr>
           </thead>
           <tbody>
-            {users.map((user) => (
-              <tr key={user.id}>
-                <td className="border p-2">{user.name}</td>
-                <td className="border p-2">{user.email}</td>
-                <td className="border p-2">{user.role?.name || "Sin rol"}</td>
+            {users.map((user, index) => (
+              <tr key={user.id} className={"bg-gray-600 hover:bg-gray-500"}>
+                <td className="border border-gray-600 p-3">{user.name}</td>
+                <td className="border border-gray-600 p-3">{user.email}</td>
+                <td className="border border-gray-600 p-3">
+                  {user.role?.name || "Sin rol"}
+                </td>
               </tr>
             ))}
           </tbody>

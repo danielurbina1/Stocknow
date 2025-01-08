@@ -176,48 +176,52 @@ const Users = () => {
       {/* Lista de Usuarios */}
       <div className="p-6 rounded-lg shadow-md">
         <h2 className="text-xl font-semibold mb-4">Lista de Usuarios</h2>
-        <table className="w-full border-collapse">
-          <thead>
-            <tr className="bg-gray-700 text-gray-100">
-              <th className="border border-gray-600 p-3 text-left">Nombre</th>
-              <th className="border border-gray-600 p-3 text-left">Correo</th>
-              <th className="border border-gray-600 p-3 text-left">Rol</th>
-              <th className="border border-gray-600 p-3 text-left">Acciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            {users.map((user, index) => (
-              <tr
-                key={user.id}
-                className={
-                  index % 2 === 0
-                    ? "bg-gray-600 hover:bg-gray-500"
-                    : "bg-gray-700 hover:bg-gray-600"
-                }
-              >
-                <td className="border border-gray-600 p-3">{user.name}</td>
-                <td className="border border-gray-600 p-3">{user.email}</td>
-                <td className="border border-gray-600 p-3">
-                  {user.role?.name || "Sin rol"}
-                </td>
-                <td className="border border-gray-600 p-3 flex space-x-2">
-                  <button
-                    onClick={() => handleDeleteUser(user.id)}
-                    className="bg-red-500 text-white py-1 px-3 rounded hover:bg-red-600"
-                  >
-                    Eliminar
-                  </button>
-                  <button
-                    onClick={() => handleEditUser(user)}
-                    className="bg-green-500 text-white py-1 px-3 rounded hover:bg-green-600"
-                  >
-                    Editar
-                  </button>
-                </td>
+        <div className="overflow-x-auto">
+          <table className="w-full table-auto border-collapse">
+            <thead>
+              <tr className="bg-gray-700 text-gray-100">
+                <th className="border border-gray-600 p-3 text-left">Nombre</th>
+                <th className="border border-gray-600 p-3 text-left">Correo</th>
+                <th className="border border-gray-600 p-3 text-left">Rol</th>
+                <th className="border border-gray-600 p-3 text-left">
+                  Acciones
+                </th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {users.map((user, index) => (
+                <tr
+                  key={user.id}
+                  className={
+                    index % 2 === 0
+                      ? "bg-gray-600 hover:bg-gray-500"
+                      : "bg-gray-700 hover:bg-gray-600"
+                  }
+                >
+                  <td className="border border-gray-600 p-3">{user.name}</td>
+                  <td className="border border-gray-600 p-3">{user.email}</td>
+                  <td className="border border-gray-600 p-3">
+                    {user.role?.name || "Sin rol"}
+                  </td>
+                  <td className="border border-gray-600 p-3 flex space-x-2">
+                    <button
+                      onClick={() => handleDeleteUser(user.id)}
+                      className="bg-red-500 text-white py-1 px-3 rounded hover:bg-red-600"
+                    >
+                      Eliminar
+                    </button>
+                    <button
+                      onClick={() => handleEditUser(user)}
+                      className="bg-green-500 text-white py-1 px-3 rounded hover:bg-green-600"
+                    >
+                      Editar
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );

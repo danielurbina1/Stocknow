@@ -1,28 +1,40 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
+namespace App\Http\Controllers;
 
-return new class extends Migration
+use App\Models\Producto;
+use Illuminate\Http\Request;
+
+class ProductosController extends Controller
 {
-    /**
-     * Run the migrations.
-     */
-    public function up(): void
+    public function updateStock(Request $request, $id)
     {
-        Schema::create('roles', function (Blueprint $table) {
-            $table->id();
-            $table->string('name')->unique(); // Nombre del rol
-            $table->timestamps();
-        });
+        // Validar los datos de entrada
+        $validated = $request->validate([
+            'stock' => 'required|integer|min:0', // Verificar que el stock sea un número entero no negativo
+        ]);
+    
+        // Buscar el producto por ID
+        $producto = Producto::find($id);
+    
+        // Si no se encuentra el producto
+        if (!$producto) {
+            return response()->json(['message' => 'Producto no encontrado'], 404);
+        }
+    
+        // Actualizar el stock del producto
+        $producto->stock = $validated['stock'];
+    
+        // Guardar el producto actualizado
+        try {
+            $producto->save();
+        } catch (\Exception $e) {
+            // Capturar cualquier excepción que pueda ocurrir al guardar el producto
+            return response()->json(['message' => 'Error al actualizar el stock', 'error' => $e->getMessage()], 500);
+        }
+    
+        // Devolver la respuesta con el stock actualizado
+        return response()->json(['message' => 'Stock actualizado', 'stock' => $producto->stock], 200);
     }
-
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
-    {
-        Schema::dropIfExists('roles');
-    }
-};
+    
+}

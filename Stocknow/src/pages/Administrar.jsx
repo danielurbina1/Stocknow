@@ -22,6 +22,8 @@ const Users = () => {
           axios.get("http://localhost:8000/api/users"),
           axios.get("http://localhost:8000/api/roles"),
         ]);
+        console.log("Users:", usersResponse.data); // Verifica que los usuarios se obtienen correctamente
+        console.log("Roles:", rolesResponse.data); // Verifica que los roles se obtienen correctamente
         setUsers(usersResponse.data);
         setRoles(rolesResponse.data);
       } catch (error) {
@@ -201,7 +203,7 @@ const Users = () => {
                   <td className="border border-gray-600 p-3">{user.name}</td>
                   <td className="border border-gray-600 p-3">{user.email}</td>
                   <td className="border border-gray-600 p-3">
-                    {user.role?.name || "Sin rol"}
+                    {user.role?.name}
                   </td>
                   <td className="border border-gray-600 p-3 flex space-x-2">
                     <button

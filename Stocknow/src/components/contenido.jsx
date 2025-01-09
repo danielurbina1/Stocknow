@@ -3,30 +3,31 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const Content = () => {
-  const [pasillos, setPasillos] = useState([]); // Estado para almacenar los pasillos
-  const [searchTerm, setSearchTerm] = useState(""); // Estado para el término de búsqueda
-  const [filteredProductos, setFilteredProductos] = useState([]); // Productos filtrados
-  const [selectedPasillo, setSelectedPasillo] = useState(null); // Pasillo seleccionado
+  const [pasillos, setPasillos] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filteredProductos, setFilteredProductos] = useState([]);
+  const [selectedPasillo, setSelectedPasillo] = useState(null);
+  const [editingProductId, setEditingProductId] = useState(null); // Producto en edición
+  const [newStock, setNewStock] = useState(""); // Nuevo valor de stock
   const navigate = useNavigate();
 
-  // Petición al backend para obtener los pasillos y productos
   useEffect(() => {
     const fetchPasillos = async () => {
       try {
-        const token = localStorage.getItem("token"); // Asume que el token de autenticación está almacenado en localStorage
+        const token = localStorage.getItem("token");
         const response = await axios.get("http://localhost:8000/api/pasillos", {
           headers: {
-            Authorization: `Bearer ${token}`, // Agregar el token al encabezado
+            Authorization: `Bearer ${token}`,
           },
         });
-        setPasillos(response.data); // Guardar los datos en el estado
+        setPasillos(response.data);
         setFilteredProductos(
           response.data.flatMap((pasillo) => pasillo.productos)
-        ); // Inicializar productos filtrados con todos
+        );
       } catch (error) {
         console.error("Error fetching pasillos:", error);
         if (error.response?.status === 401) {
-          navigate("/login"); // Redirigir al usuario si no está autenticado
+          navigate("/login");
         }
       }
     };
@@ -34,12 +35,9 @@ const Content = () => {
     fetchPasillos();
   }, [navigate]);
 
-  // Manejar cambios en el campo de búsqueda
   const handleSearchChange = (e) => {
     const term = e.target.value.toLowerCase();
     setSearchTerm(term);
-
-    // Filtrar productos por nombre o ID
     const allProductos = pasillos.flatMap((pasillo) => pasillo.productos);
     const filtered = allProductos.filter(
       (producto) =>
@@ -49,17 +47,59 @@ const Content = () => {
     setFilteredProductos(filtered);
   };
 
-  // Manejar selección de pasillo
   const handlePasilloSelect = (pasilloId) => {
     setSelectedPasillo(pasilloId);
-
-    // Filtrar productos por pasillo seleccionado
     if (pasilloId === null) {
-      setFilteredProductos(pasillos.flatMap((pasillo) => pasillo.productos)); // Mostrar todos los productos
+      setFilteredProductos(pasillos.flatMap((pasillo) => pasillo.productos));
     } else {
       const selectedProducts =
         pasillos.find((pasillo) => pasillo.id === pasilloId)?.productos || [];
       setFilteredProductos(selectedProducts);
+    }
+  };
+
+  const handleEditClick = (productId) => {
+    setEditingProductId(productId); // Activar modo edición para el producto
+    setNewStock(""); // Limpiar valor del input
+  };
+
+  const handleUpdateStock = async (productId) => {
+    const token = localStorage.getItem("token");
+    try {
+      const response = await axios.patch(
+        `http://localhost:8000/api/productos/${productId}/stock`,
+        { stock: newStock }, // Enviar nuevo stock al backend
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log("Respuesta del servidor:", response.data); // Depuración
+
+      // Actualizar localmente
+      const updatedProductos = filteredProductos.map((producto) =>
+        producto.id === productId
+          ? { ...producto, stock: response.data.stock }
+          : producto
+      );
+      setFilteredProductos(updatedProductos);
+
+      // Actualizar pasillos
+      const updatedPasillos = pasillos.map((pasillo) => ({
+        ...pasillo,
+        productos: pasillo.productos.map((producto) =>
+          producto.id === productId
+            ? { ...producto, stock: response.data.stock }
+            : producto
+        ),
+      }));
+      setPasillos(updatedPasillos);
+
+      // Salir del modo de edición
+      setEditingProductId(null);
+    } catch (error) {
+      console.error("Error al actualizar el stock:", error.response || error);
     }
   };
 
@@ -69,7 +109,6 @@ const Content = () => {
         <div className="text-indigo-600 flex items-center pb-2 pr-2 border-b-2 border-indigo-600 uppercase">
           <span className="font-semibold inline-block">Productos</span>
         </div>
-        {/* Campo de búsqueda */}
         <input
           type="text"
           className="w-full max-w-xs px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-600"
@@ -79,7 +118,6 @@ const Content = () => {
         />
       </div>
 
-      {/* Lista de pasillos */}
       <div className="mb-8 flex gap-2 flex-wrap">
         <button
           className={`px-4 py-2 rounded-md ${
@@ -106,7 +144,6 @@ const Content = () => {
         ))}
       </div>
 
-      {/* Productos */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-10">
         {filteredProductos.length > 0 ? (
           filteredProductos.map((producto) => (
@@ -117,7 +154,7 @@ const Content = () => {
               <div className="relative">
                 <img
                   className="w-full"
-                  src={`http://localhost:8000/storage/${producto.imagen}`} // Actualiza la ruta para la imagen
+                  src={`http://localhost:8000/storage/${producto.imagen}`}
                   alt={producto.nombre}
                 />
               </div>
@@ -129,6 +166,31 @@ const Content = () => {
                   Precio: €{producto.precio.toFixed(2)}
                 </p>
                 <p className="text-sm text-gray-600">Stock: {producto.stock}</p>
+              </div>
+              <div className="px-6 py-4">
+                {editingProductId === producto.id ? (
+                  <div className="flex items-center gap-2">
+                    <input
+                      type="number"
+                      className="border px-1 py-1 text-sm w-16 rounded"
+                      value={newStock}
+                      onChange={(e) => setNewStock(e.target.value)}
+                    />
+                    <button
+                      className="bg-green-500 text-white text-sm px-3 py-1 rounded"
+                      onClick={() => handleUpdateStock(producto.id)}
+                    >
+                      Guardar
+                    </button>
+                  </div>
+                ) : (
+                  <button
+                    className="bg-blue-500 text-white text-sm px-3 py-1 rounded"
+                    onClick={() => handleEditClick(producto.id)}
+                  >
+                    Modificar Stock
+                  </button>
+                )}
               </div>
             </div>
           ))

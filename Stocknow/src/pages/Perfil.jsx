@@ -72,13 +72,11 @@ const Perfil = () => {
           </button>
         </section>
 
-        {/* Historial o Actividad */}
+        {/*  o Actividad */}
         <section className="bg-gray-700 p-6 rounded-lg shadow-lg mt-16">
-          <h2 className="text-xl font-semibold mb-4">Actividad Reciente</h2>
+          <h2 className="text-xl font-semibold mb-4">BUZON</h2>
           <ul className="list-disc pl-6 space-y-2">
-            <li>Visualizó el producto "Laptop Dell XPS 13" el 03/01/2025.</li>
-            <li>Realizó una búsqueda de "Móviles Samsung" el 02/01/2025.</li>
-            <li>Actualizó su contraseña el 01/01/2025.</li>
+            <li>Pepito ha quitado 20 de sapeguetis</li>
           </ul>
         </section>
       </main>

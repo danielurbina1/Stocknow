@@ -14,14 +14,14 @@ class PasilloSeeder extends Seeder
     {
         // Lista de pasillos con sus descripciones
         $pasillos = [
-            ['nombre' => 'Pasta', 'descripcion' => 'Donde hay pasta, legumbres, y similares.'],
-            ['nombre' => 'Internacional', 'descripcion' => 'Comida y salsas de países como Japón, China, México, etc.'],
-            ['nombre' => 'Café', 'descripcion' => 'Productos relacionados con café, té, y similares.'],
-            ['nombre' => 'Bio', 'descripcion' => 'Comida ecológica, sin gluten, y productos orgánicos.'],
-            ['nombre' => 'Pan', 'descripcion' => 'Sección de pan fresco y productos relacionados.'],
-            ['nombre' => 'Conservas', 'descripcion' => 'Productos enlatados y conservas.'],
-            ['nombre' => 'Salsas', 'descripcion' => 'Todo tipo de salsas, desde mayonesa hasta picante.'],
-            ['nombre' => 'Bollería', 'descripcion' => 'Dulces, pasteles y productos de bollería.'],
+            ['nombre' => 'Pasta', 'descripcion' => 'Donde hay pasta, legumbres, y similares.' , 'user_id' => 1],
+            ['nombre' => 'Internacional', 'descripcion' => 'Comida y salsas de países como Japón, China, México, etc.' , 'user_id' => 1],
+            ['nombre' => 'Café', 'descripcion' => 'Productos relacionados con café, té, y similares.' , 'user_id' => 1],
+            ['nombre' => 'Bio', 'descripcion' => 'Comida ecológica, sin gluten, y productos orgánicos.' , 'user_id' => 1],
+            ['nombre' => 'Pan', 'descripcion' => 'Sección de pan fresco y productos relacionados.' , 'user_id' => 1],
+            ['nombre' => 'Conservas', 'descripcion' => 'Productos enlatados y conservas.' , 'user_id' => 1],
+            ['nombre' => 'Salsas', 'descripcion' => 'Todo tipo de salsas, desde mayonesa hasta picante.' , 'user_id' => 1],
+            ['nombre' => 'Bollería', 'descripcion' => 'Dulces, pasteles y productos de bollería.' , 'user_id' => 1],
         ];
 
         // Insertar cada pasillo en la tabla

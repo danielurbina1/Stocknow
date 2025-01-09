@@ -9,11 +9,15 @@ class Pasillo extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nombre', 'descripcion'];
+    protected $fillable = ['nombre', 'descripcion', 'user_id'];
 
     // Relación: un pasillo tiene muchos productos
     public function productos()
     {
         return $this->hasMany(Producto::class);
+    }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

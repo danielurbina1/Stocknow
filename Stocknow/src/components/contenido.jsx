@@ -111,7 +111,7 @@ const Content = () => {
         </div>
         <input
           type="text"
-          className="w-full max-w-xs px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-600"
+          className="w-full max-w-xs px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-600 text-black"
           placeholder="Buscar por nombre o ID"
           value={searchTerm}
           onChange={handleSearchChange}
@@ -169,7 +169,7 @@ const Content = () => {
               </div>
               <div className="px-6 py-4">
                 {editingProductId === producto.id ? (
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2 text-black">
                     <input
                       type="number"
                       className="border px-1 py-1 text-sm w-16 rounded"
@@ -185,7 +185,7 @@ const Content = () => {
                   </div>
                 ) : (
                   <button
-                    className="bg-blue-500 text-white text-sm px-3 py-1 rounded"
+                    className="bg-blue-500 text-white text-sm px-3 py-1 rounded "
                     onClick={() => handleEditClick(producto.id)}
                   >
                     Modificar Stock

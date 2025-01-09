@@ -15,8 +15,11 @@ class CreatePasillosTable extends Migration
             $table->id(); // ID único para cada pasillo
             $table->string('nombre'); // Nombre del pasillo
             $table->string('descripcion')->nullable(); // Descripción opcional
+            $table->unsignedBigInteger('user_id'); // Relación con la tabla pasillos
             $table->timestamps(); // Campos created_at y updated_at
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
+        
     }
 
     /**

@@ -2,22 +2,26 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Pasillo;
+use App\Models\Buzon;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class PasilloController extends Controller
+class BuzonController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        // Cargar pasillos con productos y el jefe de pasillo (usuario)
-        $pasillos = Pasillo::with(['productos', 'user'])->get();
+        //
+    }
 
-        // Devolver la respuesta en formato JSON
-        return response()->json($pasillos);
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        //
     }
 
     /**
@@ -31,17 +35,23 @@ class PasilloController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Pasillo $pasillo)
+    public function show(Buzon $buzon)
     {
         //
     }
+
     /**
      * Show the form for editing the specified resource.
      */
+    public function edit(Buzon $buzon)
+    {
+        //
+    }
+
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Pasillo $pasillo)
+    public function update(Request $request, Buzon $buzon)
     {
         //
     }
@@ -49,7 +59,7 @@ class PasilloController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Pasillo $pasillo)
+    public function destroy(Buzon $buzon)
     {
         //
     }

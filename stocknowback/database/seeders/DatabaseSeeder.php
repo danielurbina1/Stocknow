@@ -13,9 +13,9 @@ class DatabaseSeeder extends Seeder
     {
         // Llamar al seeder de Pasillos
         $this->call([
+            UserSeeder::class,
             PasilloSeeder::class,
             ProductosSeeder::class,
-            UserSeeder::class,
 
 
         ]);

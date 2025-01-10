@@ -41,10 +41,26 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    // Relación con el modelo Role (ya existente)
     public function role(){
         return $this->belongsTo(Role::class);
     }
+
+    // Relación con el modelo Pasillo (ya existente)
     public function pasillo(){
         return $this->belongsTo(Pasillo::class);
+    }
+
+    // Relación con los buzones (cuando el usuario es el que realiza la acción)
+    public function buzones()
+    {
+        return $this->hasMany(Buzon::class, 'user_id');
+    }
+
+    // Relación con los buzones como jefe (cuando el usuario es jefe de pasillo)
+    public function buzonesJefe()
+    {
+        return $this->hasMany(Buzon::class, 'jefe_id');
     }
 }

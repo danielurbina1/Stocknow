@@ -28,4 +28,8 @@ class Producto extends Model
     {
         return $this->belongsTo(Pasillo::class);
     }
+    public function buzones()
+    {
+        return $this->hasMany(Buzon::class, 'producto_id');
+    }
 }

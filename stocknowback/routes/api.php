@@ -7,6 +7,7 @@ use App\Http\Controllers\PasilloController;
 use App\Http\Controllers\ProductosController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\BuzonController; // Importar el controlador de buzón
 
 // Rutas de autenticación
 Route::post('/login', [AuthController::class, 'login']);
@@ -25,8 +26,12 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/productos', [ProductosController::class, 'store']);  // POST para crear un producto
     Route::patch('/productos/{id}/stock', [ProductosController::class, 'updateStock']); // Ruta para actualizar el stock
 
+    // Ruta para obtener datos del buzón
+    Route::get('/buzones', [BuzonController::class, 'index']); // Nueva línea añadida
+
     // Rutas para roles y usuarios
-    
 });
+
+// Rutas generales para roles y usuarios
 Route::apiResource('roles', RoleController::class);
-    Route::apiResource('users', UserController::class);
+Route::apiResource('users', UserController::class);

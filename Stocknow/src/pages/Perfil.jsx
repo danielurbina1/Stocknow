@@ -4,6 +4,7 @@ import Header from "../components/Header";
 
 const Perfil = () => {
   const [userData, setUserData] = useState(null); // Datos del usuario
+  const [buzonMessages, setBuzonMessages] = useState([]); // Mensajes del buzón
   const [error, setError] = useState(null); // Error de API
 
   useEffect(() => {
@@ -14,18 +15,29 @@ const Perfil = () => {
           throw new Error("No se encontró un token válido.");
         }
 
-        // Realiza la solicitud GET con el token
-        const response = await axios.get("http://localhost:8000/api/user", {
+        // Solicitar datos del usuario
+        const userResponse = await axios.get("http://localhost:8000/api/user", {
           headers: {
             Authorization: `Bearer ${token}`, // Agrega el token al encabezado
           },
         });
 
-        // Establece los datos del usuario
-        setUserData(response.data);
+        setUserData(userResponse.data);
+
+        // Solicitar mensajes del buzón
+        const buzonResponse = await axios.get(
+          "http://localhost:8000/api/buzones",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`, // Agrega el token al encabezado
+            },
+          }
+        );
+
+        setBuzonMessages(buzonResponse.data); // Establece los mensajes del buzón
       } catch (err) {
-        console.error("Error al obtener los datos del usuario:", err);
-        setError("No se pudo obtener la información del usuario.");
+        console.error("Error al obtener los datos:", err);
+        setError("No se pudo obtener la información.");
       }
     };
 
@@ -72,12 +84,28 @@ const Perfil = () => {
           </button>
         </section>
 
-        {/*  o Actividad */}
+        {/* Buzón */}
         <section className="bg-gray-700 p-6 rounded-lg shadow-lg mt-16">
-          <h2 className="text-xl font-semibold mb-4">BUZON</h2>
-          <ul className="list-disc pl-6 space-y-2">
-            <li>Pepito ha quitado 20 de sapeguetis</li>
-          </ul>
+          <h2 className="text-xl font-semibold mb-4">Buzón</h2>
+          {buzonMessages.length > 0 ? (
+            <ul className="list-disc pl-6 space-y-2">
+              {buzonMessages.map((message) => (
+                <li key={message.id}>
+                  <span className="font-bold">{message.jefe.name}</span> ha
+                  modificado el stock de{" "}
+                  <span className="font-bold">{message.producto.nombre}</span>{" "}
+                  por una cantidad de{" "}
+                  <span className="font-bold">{message.cantidad}</span> el día{" "}
+                  <span className="font-bold">
+                    {new Date(message.created_at).toLocaleDateString()}
+                  </span>
+                  .
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p className="text-gray-400">No hay mensajes en el buzón.</p>
+          )}
         </section>
       </main>
     </div>

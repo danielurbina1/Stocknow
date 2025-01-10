@@ -92,10 +92,10 @@ const Perfil = () => {
               {buzonMessages.map((message) => (
                 <li key={message.id}>
                   <span className="font-bold">{message.jefe.name}</span> ha
-                  modificado el stock de{" "}
+                  quitado una cantidad de{" "}
+                  <span className="font-bold">{message.cantidad}</span> de{" "}
                   <span className="font-bold">{message.producto.nombre}</span>{" "}
-                  por una cantidad de{" "}
-                  <span className="font-bold">{message.cantidad}</span> el día{" "}
+                  el día{" "}
                   <span className="font-bold">
                     {new Date(message.created_at).toLocaleDateString()}
                   </span>

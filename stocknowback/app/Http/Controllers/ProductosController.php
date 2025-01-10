@@ -7,63 +7,55 @@ use Illuminate\Http\Request;
 
 class ProductosController extends Controller
 {
-    public function updateStock(Request $request, $id)
-{
-    // Validar los datos de entrada
-    $validated = $request->validate([
-        'stock' => 'required|integer|min:0', // Verificar que el stock sea un número entero no negativo
-    ]);
-
-    // Buscar el producto por ID
-    $producto = Producto::find($id); // Cargar relaciones necesarias
-
-    // Si no se encuentra el producto
-    if (!$producto) {
-        return response()->json(['message' => 'Producto no encontrado'], 404);
-    }
-
-    // Obtener el usuario logeado
-    $loggedUser = $request->user(); // Usuario que realiza la petición
-
-    // Obtener el jefe del pasillo asociado al producto
-    $jefePasillo = $producto->pasillo->user ?? null;
-
-    if (!$jefePasillo) {
-        return response()->json(['message' => 'El pasillo no tiene un jefe asignado'], 400);
-    }
-
-    // Calcular la cantidad de stock modificado
-    $cantidadModificada = $producto->stock - $validated['stock'];
-
-    // Actualizar el stock del producto
-    $producto->stock = $validated['stock'];
-
-    try {
-        // Guardar el producto actualizado
-        $producto->save();
-
-        // Crear un registro en la tabla "buzones"
-        Buzon::create([
-            'cantidad' => $cantidadModificada,
-            'jefe_id' => $jefePasillo->id,
-            'user_id' => $loggedUser->id,
-            'producto_id' => $producto->id, // Asegurar que producto_id se incluya
+    // Método para restar stock
+    public function restarStock(Request $request, $id)
+    {
+        // Validar la cantidad a restar
+        $validated = $request->validate([
+            'cantidad_a_restar' => 'required|integer|min:1', // Asegura que la cantidad es un número entero positivo
         ]);
-    } catch (\Exception $e) {
-        // Capturar cualquier excepción que pueda ocurrir
-        return response()->json(['message' => 'Error al actualizar el stock o registrar en el buzón', 'error' => $e->getMessage()], 500);
+
+        // Buscar el producto por ID
+        $producto = Producto::find($id);
+
+        // Si no se encuentra el producto
+        if (!$producto) {
+            return response()->json(['message' => 'Producto no encontrado'], 404);
+        }
+
+        // Verificar que no se reste más de lo que hay en stock
+        if ($producto->stock < $validated['cantidad_a_restar']) {
+            return response()->json(['message' => 'Stock insuficiente para restar esa cantidad'], 400);
+        }
+
+        // Restar la cantidad del stock
+        $cantidadRestada = $validated['cantidad_a_restar']; // Definir la cantidad restada
+        $producto->stock -= $cantidadRestada;
+
+        try {
+            // Guardar el producto actualizado
+            $producto->save();
+
+            // Crear un registro en el buzón
+            Buzon::create([
+                'cantidad' => $cantidadRestada,
+                'producto_id' => $producto->id,
+                'user_id' => $request->user()->id,
+                'jefe_id' => $producto->pasillo->user->id, // Suponiendo que cada pasillo tiene un jefe
+            ]);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Error al restar el stock o registrar en el buzón', 'error' => $e->getMessage()], 500);
+        }
+
+        // Devolver la respuesta con el stock actualizado
+        return response()->json([
+            'message' => 'Stock restado',
+            'stock' => $producto->stock,
+            'buzon' => [
+                'cantidad' => $cantidadRestada,
+                'jefe' => $producto->pasillo->user->name, // Asegurarse de que el jefe esté disponible
+                'usuario' => $request->user()->name,
+            ],
+        ], 200);
     }
-
-    // Devolver la respuesta con el stock actualizado
-    return response()->json([
-        'message' => 'Stock actualizado',
-        'stock' => $producto->stock,
-        'buzon' => [
-            'cantidad' => $cantidadModificada,
-            'jefe' => $jefePasillo->name,
-            'usuario' => $loggedUser->name,
-        ],
-    ], 200);
-}
-
 }

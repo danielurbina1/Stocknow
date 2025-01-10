@@ -8,7 +8,7 @@ const Content = () => {
   const [filteredProductos, setFilteredProductos] = useState([]);
   const [selectedPasillo, setSelectedPasillo] = useState(null);
   const [editingProductId, setEditingProductId] = useState(null); // Producto en edición
-  const [newStock, setNewStock] = useState(""); // Nuevo valor de stock
+  const [restarStock, setRestarStock] = useState(""); // Valor de stock para restar
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -60,15 +60,15 @@ const Content = () => {
 
   const handleEditClick = (productId) => {
     setEditingProductId(productId); // Activar modo edición para el producto
-    setNewStock(""); // Limpiar valor del input
+    setRestarStock(""); // Limpiar valor de restar stock
   };
 
-  const handleUpdateStock = async (productId) => {
+  const handleRestarStock = async (productId) => {
     const token = localStorage.getItem("token");
     try {
       const response = await axios.patch(
-        `http://localhost:8000/api/productos/${productId}/stock`,
-        { stock: newStock }, // Enviar nuevo stock al backend
+        `http://localhost:8000/api/productos/${productId}/stock/restar`,
+        { cantidad_a_restar: restarStock }, // Enviar cantidad a restar al backend
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -99,7 +99,7 @@ const Content = () => {
       // Salir del modo de edición
       setEditingProductId(null);
     } catch (error) {
-      console.error("Error al actualizar el stock:", error.response || error);
+      console.error("Error al restar el stock:", error.response || error);
     }
   };
 
@@ -173,14 +173,15 @@ const Content = () => {
                     <input
                       type="number"
                       className="border px-1 py-1 text-sm w-16 rounded"
-                      value={newStock}
-                      onChange={(e) => setNewStock(e.target.value)}
+                      value={restarStock}
+                      onChange={(e) => setRestarStock(e.target.value)}
+                      placeholder="Restar stock"
                     />
                     <button
-                      className="bg-green-500 text-white text-sm px-3 py-1 rounded"
-                      onClick={() => handleUpdateStock(producto.id)}
+                      className="bg-red-500 text-white text-sm px-3 py-1 rounded"
+                      onClick={() => handleRestarStock(producto.id)}
                     >
-                      Guardar
+                      Restar Stock
                     </button>
                   </div>
                 ) : (

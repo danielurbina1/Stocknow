@@ -25,6 +25,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/pasillos/{id}/productos', [ProductosController::class, 'filterByPasillo']);
     Route::post('/productos', [ProductosController::class, 'store']);  // POST para crear un producto
     Route::patch('/productos/{id}/stock', [ProductosController::class, 'updateStock']); // Ruta para actualizar el stock
+    Route::patch('/productos/{id}/stock/restar', [ProductosController::class, 'restarStock']); // Ruta para restar stock
 
     // Ruta para obtener datos del buzón
     Route::get('/buzones', [BuzonController::class, 'index']); // Nueva línea añadida

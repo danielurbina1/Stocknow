@@ -1,14 +1,16 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Models\Buzon;
-
+use Illuminate\Support\Facades\Auth;
 class BuzonController extends Controller
 {
     public function index()
     {
-        $buzon = Buzon::with(['producto', 'jefe', 'user'])->get();
+        $user = Auth::user();
+        $buzon = Buzon::with(['producto', 'jefe', 'user'])->where("jefe_id", $user->id)->get();
         return response()->json($buzon);
+
+        
     }
 }

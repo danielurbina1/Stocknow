@@ -29,19 +29,57 @@ class UserSeeder extends Seeder
         $jefeRole = Role::where('name', 'Jefe')->first();
         $rotativoRole = Role::where('name', 'Rotativo')->first();
 
-        User::create([
-            'name' => 'Daniel',
-            'email' => 'turbinamoreno@gmail.com',
-            'password' => Hash::make('1234'),
-            'role_id' => $adminRole->id,
-        ]);
+        
 
         User::create([
-            'name' => 'Jefe Pasillo',
-            'email' => 'jefepasillo@gmail.com',
+            'name' => 'Jefe Pasillo pasta',
+            'email' => 'jefepasilloP@gmail.com',
             'password' => Hash::make('1234'),
             'role_id' => $jefePasilloRole->id,
         ]);
+        User::create([
+            'name' => 'Jefe Pasillo Internacional',
+            'email' => 'jefepasilloI@gmail.com',
+            'password' => Hash::make('1234'),
+            'role_id' => $jefePasilloRole->id,
+        ]);
+        User::create([
+            'name' => 'Jefe Pasillo Cafe',
+            'email' => 'jefepasilloC@gmail.com',
+            'password' => Hash::make('1234'),
+            'role_id' => $jefePasilloRole->id,
+        ]);
+        User::create([
+            'name' => 'Jefe Pasillo Bio',
+            'email' => 'jefepasilloB@gmail.com',
+            'password' => Hash::make('1234'),
+            'role_id' => $jefePasilloRole->id,
+        ]);
+        User::create([
+            'name' => 'Jefe Pasillo Pan',
+            'email' => 'jefepasilloPan@gmail.com',
+            'password' => Hash::make('1234'),
+            'role_id' => $jefePasilloRole->id,
+        ]);
+        User::create([
+            'name' => 'Jefe Pasillo Conservas',
+            'email' => 'jefepasilloCon@gmail.com',
+            'password' => Hash::make('1234'),
+            'role_id' => $jefePasilloRole->id,
+        ]);
+        User::create([
+            'name' => 'Jefe Pasillo Salsas',
+            'email' => 'jefepasilloS@gmail.com',
+            'password' => Hash::make('1234'),
+            'role_id' => $jefePasilloRole->id,
+        ]);
+        User::create([
+            'name' => 'Jefe Pasillo Bolleria',
+            'email' => 'jefepasilloBolleria@gmail.com',
+            'password' => Hash::make('1234'),
+            'role_id' => $jefePasilloRole->id,
+        ]);
+        
 
         User::create([
             'name' => 'Jefe General',
@@ -55,6 +93,12 @@ class UserSeeder extends Seeder
             'email' => 'rotativo@gmail.com',
             'password' => Hash::make('1234'),
             'role_id' => $rotativoRole->id,
+        ]);
+        User::create([
+            'name' => 'Daniel',
+            'email' => 'turbinamoreno@gmail.com',
+            'password' => Hash::make('1234'),
+            'role_id' => $adminRole->id,
         ]);
     }
 }

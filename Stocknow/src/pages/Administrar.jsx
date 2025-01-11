@@ -103,7 +103,7 @@ const Users = () => {
             setIsModalOpen(true);
             setEditUser(null);
           }}
-          className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
+          className="bg-blue-500  py-2 px-4 rounded hover:bg-blue-600"
         >
           Crear Usuario
         </button>
@@ -112,7 +112,7 @@ const Users = () => {
       {/* Modal */}
       {isModalOpen && (
         <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 z-50">
-          <div className="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
+          <div className="bg-white p-6 rounded-lg shadow-lg max-w-md w-full text-black">
             <h2 className="text-xl font-semibold mb-4">
               {editUser ? "Editar Usuario" : "Crear Usuario"}
             </h2>
@@ -123,7 +123,7 @@ const Users = () => {
                 value={editUser ? editUser.name : newUser.name}
                 onChange={handleInputChange}
                 placeholder="Nombre"
-                className="w-full p-2 border rounded"
+                className="w-full p-2 border rounded text-black"
               />
               <input
                 type="email"
@@ -131,7 +131,7 @@ const Users = () => {
                 value={editUser ? editUser.email : newUser.email}
                 onChange={handleInputChange}
                 placeholder="Correo Electrónico"
-                className="w-full p-2 border rounded"
+                className="w-full p-2 border rounded text-black"
               />
               {!editUser && (
                 <input
@@ -140,14 +140,14 @@ const Users = () => {
                   value={newUser.password}
                   onChange={handleInputChange}
                   placeholder="Contraseña"
-                  className="w-full p-2 border rounded"
+                  className="w-full p-2 border rounded text-black"
                 />
               )}
               <select
                 name="role_id"
                 value={editUser ? editUser.role_id : newUser.role_id}
                 onChange={handleInputChange}
-                className="w-full p-2 border rounded"
+                className="w-full p-2 border rounded text-black"
               >
                 <option value="">Seleccione un rol</option>
                 {roles.map((role) => (

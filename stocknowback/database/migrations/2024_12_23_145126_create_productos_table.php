@@ -8,11 +8,11 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('productos', function (Blueprint $table) {
-            $table->id(); // ID único del producto
-            $table->string('nombre'); // Nombre del producto
-            $table->decimal('precio', 8, 2); // Precio del producto
-            $table->unsignedBigInteger('pasillo_id'); // Relación con la tabla pasillos
-            $table->integer('stock')->default(0); // Stock del producto
+            $table->id(); 
+            $table->string('nombre'); 
+            $table->decimal('precio', 8, 2); 
+            $table->unsignedBigInteger('pasillo_id'); 
+            $table->integer('stock')->default(0); 
             $table->string('imagen')->nullable();
             $table->timestamps();
 

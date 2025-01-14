@@ -7,8 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class Buzon extends Model
 {
     protected $fillable = ['cantidad', 'jefe_id', 'user_id', 'producto_id'];
-    protected $table = 'buzones'; // Asegúrate de que el nombre de la tabla sea 'buzones'
+    protected $table = 'buzones'; 
 
+    //Aqui estoy definiendo relaciones con user, jefe y producto para acceder al esos datos dentro de buzon
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');

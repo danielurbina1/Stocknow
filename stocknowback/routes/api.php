@@ -7,7 +7,7 @@ use App\Http\Controllers\PasilloController;
 use App\Http\Controllers\ProductosController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\BuzonController; // Importar el controlador de buzón
+use App\Http\Controllers\BuzonController; 
 
 // Rutas de autenticación
 Route::post('/login', [AuthController::class, 'login']);
@@ -20,7 +20,7 @@ Route::middleware('auth:sanctum')->group(function () {
         return $request->user()->load('role');
     });
 
-    // Rutas para productos
+    
     Route::get('/pasillos', [PasilloController::class, 'index']);
     Route::get('/pasillos/{id}/productos', [ProductosController::class, 'filterByPasillo']);
     Route::post('/productos', [ProductosController::class, 'store']);  // POST para crear un producto
@@ -29,7 +29,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::patch('/productos/{id}/stock/sumar', [ProductosController::class, 'sumarStock']); // Nueva ruta para sumar stock
 
     // Ruta para obtener datos del buzón
-    Route::get('/buzones', [BuzonController::class, 'index']); // Nueva línea añadida
+    Route::get('/buzones', [BuzonController::class, 'index']); 
 
     // Rutas para roles y usuarios
 });

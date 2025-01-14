@@ -20,37 +20,5 @@ class PasilloController extends Controller
         return response()->json($pasillos);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Pasillo $pasillo)
-    {
-        //
-    }
-    /**
-     * Show the form for editing the specified resource.
-     */
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Pasillo $pasillo)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Pasillo $pasillo)
-    {
-        //
-    }
+    
 }

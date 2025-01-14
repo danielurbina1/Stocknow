@@ -8,49 +8,45 @@ use App\Models\User;
 
 class AuthController extends Controller
 {
-    /**
-     * Manejar el inicio de sesión.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\JsonResponse
-     */
+    
     public function login(Request $request)
     {
-        // Validar los datos del request
+        // Validación de los campos del request
         $request->validate([
-            'email' => 'required|email',  // Validar que el campo sea un email válido
-            'password' => 'required',     // Campo obligatorio
+            'email' => 'required|email',  
+            'password' => 'required',     
         ]);
     
         // Buscar al usuario por email
-        $user = User::with('role')->where('email', $request->email)->first();    
-        // Verificar si el usuario existe
+        $user = User::with('role')->where('email', $request->email)->first();
+    
+        
         if (!$user) {
             return response()->json([
                 'message' => 'El usuario no existe'
-            ], 404); // Código de estado 404: No encontrado
+            ], 404);
         }
     
-        // Verificar la contraseña
+        // Verificar si la contraseña es correcta
         if (!Hash::check($request->password, $user->password)) {
             return response()->json([
                 'message' => 'Credenciales inválidas'
-            ], 401); // Código de estado 401: No autorizado
+            ], 401);
         }
     
-        // Generar un token de autenticación (si usas Laravel Sanctum)
+        
         $token = $user->createToken('auth_token')->plainTextToken;
     
-        // Respuesta exitosa con el token y datos del usuario
+        // Retornar respuesta con el token y datos del usuario
         return response()->json([
-            'message' => 'Inicio de sesión exitoso',
             'token' => $token,
-            'user' => $user, // Aquí se devuelve el usuario completo
+            'user' => $user,
         ]);
     }
+
     public function logout(Request $request)
     {
-        // Elimina el token de acceso del usuario autenticado
+        // Eliminar el token de acceso del usuario
         $request->user()->currentAccessToken()->delete();
 
         return response()->json(['message' => 'Sesión cerrada correctamente.']);

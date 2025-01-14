@@ -16,7 +16,7 @@ return new class extends Migration
             $table->integer('cantidad');
             $table->unsignedBigInteger('jefe_id');
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('producto_id'); // Nueva columna para productos
+            $table->unsignedBigInteger('producto_id'); 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('jefe_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('producto_id')->references('id')->on('productos')->onDelete('cascade'); // Relación con productos

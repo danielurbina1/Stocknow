@@ -17,10 +17,10 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name', // Nombre del usuario
-        'email',  // Correo electrónico
-        'password', // Contraseña
-        'role_id',    // Rol del usuario
+        'name', 
+        'email',  
+        'password', 
+        'role_id',   
     ];
 
     /**
@@ -47,12 +47,12 @@ class User extends Authenticatable
         return $this->belongsTo(Role::class);
     }
 
-    // Relación con el modelo Pasillo (ya existente)
+    // Relacion con el pasillo
     public function pasillo(){
         return $this->belongsTo(Pasillo::class);
     }
 
-    // Relación con los buzones (cuando el usuario es el que realiza la acción)
+    // Relacion con los buzones
     public function buzones()
     {
         return $this->hasMany(Buzon::class, 'user_id');

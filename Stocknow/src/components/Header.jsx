@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import logo from "../imagenes/logo.png"; // Importa la imagen
+import logo from "../imagenes/logo.png";
 
 const Header = () => {
   const navigate = useNavigate();
   const [userData, setUserData] = useState(null); // Estado para los datos del usuario
-  const [isMenuOpen, setIsMenuOpen] = useState(false); // Estado para manejar el menú en pantallas pequeñas
+  const [menuabierto, setmenuabierto] = useState(false); // Estado para manejar el menú en pantallas pequeñas
 
   useEffect(() => {
     const fetchData = async () => {
@@ -86,7 +86,7 @@ const Header = () => {
         <div
           id="collapseMenu"
           className={`lg:block ${
-            isMenuOpen ? "block" : "hidden"
+            menuabierto ? "block" : "hidden"
           } max-lg:hidden`}
         >
           <ul className="lg:flex lg:gap-x-5 max-lg:space-y-3 max-lg:fixed max-lg:bg-white max-lg:w-1/2 max-lg:min-w-[300px] max-lg:top-0 max-lg:left-0 max-lg:p-6 max-lg:h-full max-lg:shadow-md max-lg:overflow-auto z-50">
@@ -133,7 +133,7 @@ const Header = () => {
           {/* Icono de menú para pantallas pequeñas */}
           <button
             className="lg:hidden text-white"
-            onClick={() => setIsMenuOpen(!isMenuOpen)} // Alterna la visibilidad del menú
+            onClick={() => setmenuabierto(!menuabierto)} // Alterna la visibilidad del menú
           >
             <span className="material-icons">menu</span>
           </button>
@@ -141,7 +141,7 @@ const Header = () => {
       </div>
 
       {/* Menú desplegable en pantallas pequeñas */}
-      {isMenuOpen && (
+      {menuabierto && (
         <div className="lg:hidden flex flex-col items-start p-4 bg-gray-800 w-full absolute top-0 left-0 z-50">
           {userData?.role?.name &&
             ["Admin", "Jefe"].includes(userData.role.name) && (

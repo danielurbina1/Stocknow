@@ -3,17 +3,16 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const Content = () => {
-  // Estados para manejar los pasillos, productos filtrados y búsqueda
   const [pasillos, setPasillos] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const [filteredProductos, setFilteredProductos] = useState([]);
+  const [filtrarproductos, setFiltrarProductos] = useState([]);
   const [selectedPasillo, setSelectedPasillo] = useState(null);
   const [editingProductId, setEditingProductId] = useState(null); // Para saber qué producto se está editando
   const [stockAmount, setStockAmount] = useState(""); // Valor que se usará para sumar o restar stock
   const navigate = useNavigate(); // Para redirigir en caso de no estar autenticado
 
   useEffect(() => {
-    // Función para obtener los pasillos y productos de la API
+    // Función para obtener los pasillos y productos
     const fetchPasillos = async () => {
       try {
         const token = localStorage.getItem("token");
@@ -26,7 +25,7 @@ const Content = () => {
           }
         );
         setPasillos(response.data); // Aqui estoy guardando los pasillos
-        setFilteredProductos(
+        setFiltrarProductos(
           response.data.flatMap((pasillo) => pasillo.productos)
         );
       } catch (error) {
@@ -44,27 +43,26 @@ const Content = () => {
   const handleSearchChange = (e) => {
     const term = e.target.value.toLowerCase();
     setSearchTerm(term); // Actualizamos el término de búsqueda
-    const allProductos = pasillos.flatMap((pasillo) => pasillo.productos); // Aplanamos todos los productos
-    // Filtramos los productos según el término de búsqueda, ya sea por nombre o por ID
+    const allProductos = pasillos.flatMap((pasillo) => pasillo.productos);
+    // Filtramos los productos según si buscamos con id o nombre.
     const filtered = allProductos.filter(
       (producto) =>
         producto.nombre.toLowerCase().includes(term) ||
         producto.id.toString().includes(term)
     );
-    setFilteredProductos(filtered); // Actualizamos los productos filtrados
+    setFiltrarProductos(filtered); // Actualizamos los productos filtrados
   };
 
-  // Función para manejar la selección de un pasillo
   const handlePasilloSelect = (pasilloId) => {
     setSelectedPasillo(pasilloId);
     if (pasilloId === null) {
       // Si no se selecciona ningún pasillo, mostramos todos los productos
-      setFilteredProductos(pasillos.flatMap((pasillo) => pasillo.productos));
+      setFiltrarProductos(pasillos.flatMap((pasillo) => pasillo.productos));
     } else {
       // Si se selecciona un pasillo, solo mostramos los productos de ese pasillo
       const selectedProducts =
         pasillos.find((pasillo) => pasillo.id === pasilloId)?.productos || [];
-      setFilteredProductos(selectedProducts);
+      setFiltrarProductos(selectedProducts);
     }
   };
 
@@ -79,17 +77,15 @@ const Content = () => {
   const handleStockUpdate = async (productId, operacion) => {
     const token = localStorage.getItem("token"); // Obtenemos el token para la autorización
     try {
-      let url = ""; // La URL dependerá de si vamos a sumar o restar stock
+      let url = ""; // La url dependera de si vamos a sumar o restar stock que se realiza en la siguiente condicional
       const payload = { cantidad_a_restar: stockAmount }; // Por defecto, intentamos restar stock
 
       if (operacion === "sumar") {
-        // Si la operación es "sumar", construimos la URL para sumar el stock
         url = `${
           import.meta.env.VITE_BACKENDURL
         }/api/productos/${productId}/stock/sumar`;
-        payload.cantidad_a_sumar = stockAmount; // Usamos el campo correcto para sumar
+        payload.cantidad_a_sumar = stockAmount;
       } else if (operacion === "restar") {
-        // Si la operación es "restar", construimos la URL para restar el stock
         url = `${
           import.meta.env.VITE_BACKENDURL
         }/api/productos/${productId}/stock/restar`;
@@ -101,15 +97,13 @@ const Content = () => {
         },
       });
 
-      console.log("Respuesta del servidor:", response.data); // Mostramos la respuesta del servidor para depurar
-
       // Actualizamos el stock localmente en los productos filtrados
-      const updatedProductos = filteredProductos.map((producto) =>
+      const updatedProductos = filtrarproductos.map((producto) =>
         producto.id === productId
           ? { ...producto, stock: response.data.stock } // Si es el producto editado, actualizamos su stock
           : producto
       );
-      setFilteredProductos(updatedProductos);
+      setFiltrarProductos(updatedProductos);
 
       // Actualizamos el stock también en los pasillos
       const updatedPasillos = pasillos.map((pasillo) => ({
@@ -126,7 +120,7 @@ const Content = () => {
       setEditingProductId(null);
       setOperation(""); // Limpiamos la operación de stock
     } catch (error) {
-      console.error("Error al actualizar el stock:", error.response || error); // Mostramos el error si ocurre
+      console.error("Error al actualizar el stock:", error.response || error); // Para mostrar error si lo hay
     }
   };
 
@@ -171,8 +165,8 @@ const Content = () => {
       </div>
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-10">
-        {filteredProductos.length > 0 ? (
-          filteredProductos.map((producto) => (
+        {filtrarproductos.length > 0 ? (
+          filtrarproductos.map((producto) => (
             <div
               key={producto.id}
               className="rounded overflow-hidden shadow-lg flex flex-col"
@@ -195,13 +189,12 @@ const Content = () => {
               </div>
               <div className="px-6 py-4">
                 {editingProductId === producto.id ? (
-                  // Si estamos en el modo de edición para este producto, mostramos los botones de suma/resta
                   <div className="flex flex-col sm:flex-row items-center gap-2 text-black">
                     <input
                       type="number"
                       className="border px-1 py-1 text-xs sm:text-sm w-16 rounded"
                       value={stockAmount}
-                      onChange={(e) => setStockAmount(e.target.value)} // Actualizamos la cantidad de stock
+                      onChange={(e) => setStockAmount(e.target.value)}
                       placeholder="Cantidad"
                     />
                     <button
@@ -236,7 +229,6 @@ const Content = () => {
             </div>
           ))
         ) : (
-          // Si no hay productos, mostramos un mensaje indicando que no se encontraron productos
           <p className="text-center col-span-full text-gray-500">
             No se encontraron productos.
           </p>

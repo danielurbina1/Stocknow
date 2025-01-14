@@ -16,11 +16,14 @@ const Dashboard = () => {
         }
 
         // Realiza la solicitud GET con el token
-        const response = await axios.get("http://localhost:8000/api/user", {
-          headers: {
-            Authorization: `Bearer ${token}`, // Agrega el token al encabezado
-          },
-        });
+        const response = await axios.get(
+          `${import.meta.env.VITE_BACKENDURL}/api/user`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`, // Agrega el token al encabezado
+            },
+          }
+        );
 
         // Si la respuesta es exitosa, almacena los datos
         setUserData(response.data);

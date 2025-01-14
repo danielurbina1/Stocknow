@@ -16,17 +16,20 @@ const Perfil = () => {
         }
 
         // Solicitar datos del usuario
-        const userResponse = await axios.get("http://localhost:8000/api/user", {
-          headers: {
-            Authorization: `Bearer ${token}`, // Agrega el token al encabezado
-          },
-        });
+        const userResponse = await axios.get(
+          `${import.meta.env.VITE_BACKENDURL}/api/user`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`, // Agrega el token al encabezado
+            },
+          }
+        );
 
         setUserData(userResponse.data);
 
         // Solicitar mensajes del buzón
         const buzonResponse = await axios.get(
-          "http://localhost:8000/api/buzones",
+          `${import.meta.env.VITE_BACKENDURL}/api/buzones`,
           {
             headers: {
               Authorization: `Bearer ${token}`, // Agrega el token al encabezado

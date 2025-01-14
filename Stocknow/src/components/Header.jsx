@@ -17,11 +17,14 @@ const Header = () => {
         }
 
         // Realiza la solicitud GET con el token
-        const response = await axios.get("http://localhost:8000/api/user", {
-          headers: {
-            Authorization: `Bearer ${token}`, // Agrega el token al encabezado
-          },
-        });
+        const response = await axios.get(
+          `${import.meta.env.VITE_BACKENDURL}/api/user`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`, // Agrega el token al encabezado
+            },
+          }
+        );
 
         setUserData(response.data); // Almacena los datos del usuario
         console.log(userData);
@@ -47,7 +50,7 @@ const Header = () => {
     const token = localStorage.getItem("token");
     axios
       .post(
-        "http://localhost:8000/api/logout",
+        `${import.meta.env.VITE_BACKENDURL}/api/logout`,
         {},
         {
           headers: {
@@ -74,7 +77,7 @@ const Header = () => {
     <header className="flex shadow-lg py-4 px-4 sm:px-10 bg-gradient-to-b from-gray-900 via-gray-800 to-gray-700 text-gray-200 font-[sans-serif] min-h-[70px] tracking-wide relative z-50 border-b border-gray-600">
       <div className="flex flex-wrap items-center justify-between gap-4 w-full">
         <div className="flex items-center lg:absolute lg:top-2/4 lg:left-2/4 lg:-translate-x-1/2 lg:-translate-y-1/2 max-lg:left-5">
-          <img src={logo} alt="Logo" className="w-20 h-16 mr-2" />{" "}
+          <img src={logo} alt="Logo" className="w-28 h-28 mr-2" />{" "}
           {/* Logo a la izquierda */}
           <h2 className="text-lg font-bold">StockNow</h2>
         </div>

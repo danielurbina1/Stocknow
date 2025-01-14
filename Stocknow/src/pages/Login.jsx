@@ -7,7 +7,7 @@ const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");  // Estado para manejar el mensaje de error
+  const [error, setError] = useState(""); // Estado para manejar el mensaje de error
   const navigate = useNavigate(); // Inicializa useNavigate para redirigir
 
   // Lógica de inicio de sesión que redirige sin verificar credenciales
@@ -25,10 +25,13 @@ const Login = () => {
 
     try {
       console.log("Intentando iniciar sesión...");
-      const response = await axios.post("http://localhost:8000/api/login", {
-        email: username,  // Cambié 'name' por 'email'
-        password: password,
-    });
+      const response = await axios.post(
+        `${import.meta.env.VITE_BACKENDURL}/api/login`,
+        {
+          email: username, // Cambié 'name' por 'email'
+          password: password,
+        }
+      );
 
       // Guarda el token en el almacenamiento local o en una cookie
       localStorage.setItem("token", response.data.token);
@@ -43,9 +46,13 @@ const Login = () => {
       if (error.response) {
         // Si el servidor respondió con un error, muestra el mensaje adecuado
         if (error.response.status === 401) {
-          setError("Credenciales inválidas. Por favor, verifica tu nombre y contraseña.");
+          setError(
+            "Credenciales inválidas. Por favor, verifica tu nombre y contraseña."
+          );
         } else {
-          setError("Hubo un problema al intentar iniciar sesión. Intenta más tarde.");
+          setError(
+            "Hubo un problema al intentar iniciar sesión. Intenta más tarde."
+          );
         }
       } else {
         // Si no hay respuesta del servidor

@@ -17,11 +17,14 @@ const Content = () => {
     const fetchPasillos = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await axios.get("http://localhost:8000/api/pasillos", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const response = await axios.get(
+          `${import.meta.env.VITE_BACKENDURL}/api/pasillos`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
         setPasillos(response.data); // Aqui estoy guardando los pasillos
         setFilteredProductos(
           response.data.flatMap((pasillo) => pasillo.productos)
@@ -81,11 +84,15 @@ const Content = () => {
 
       if (operacion === "sumar") {
         // Si la operación es "sumar", construimos la URL para sumar el stock
-        url = `http://localhost:8000/api/productos/${productId}/stock/sumar`;
+        url = `${
+          import.meta.env.VITE_BACKENDURL
+        }/api/productos/${productId}/stock/sumar`;
         payload.cantidad_a_sumar = stockAmount; // Usamos el campo correcto para sumar
       } else if (operacion === "restar") {
         // Si la operación es "restar", construimos la URL para restar el stock
-        url = `http://localhost:8000/api/productos/${productId}/stock/restar`;
+        url = `${
+          import.meta.env.VITE_BACKENDURL
+        }/api/productos/${productId}/stock/restar`;
       }
 
       const response = await axios.patch(url, payload, {
@@ -189,16 +196,16 @@ const Content = () => {
               <div className="px-6 py-4">
                 {editingProductId === producto.id ? (
                   // Si estamos en el modo de edición para este producto, mostramos los botones de suma/resta
-                  <div className="flex items-center gap-2 text-black">
+                  <div className="flex flex-col sm:flex-row items-center gap-2 text-black">
                     <input
                       type="number"
-                      className="border px-1 py-1 text-sm w-16 rounded"
+                      className="border px-1 py-1 text-xs sm:text-sm w-16 rounded"
                       value={stockAmount}
                       onChange={(e) => setStockAmount(e.target.value)} // Actualizamos la cantidad de stock
                       placeholder="Cantidad"
                     />
                     <button
-                      className="bg-red-500 text-white text-sm px-3 py-1 rounded"
+                      className="bg-red-500 text-white text-xs sm:text-sm px-2 sm:px-3 py-1 rounded w-full sm:w-auto"
                       onClick={() => {
                         // Establecemos que vamos a restar stock
                         handleStockUpdate(producto.id, "restar"); // Llamamos a la función de actualización de stock
@@ -207,7 +214,7 @@ const Content = () => {
                       Restar Stock
                     </button>
                     <button
-                      className="bg-green-500 text-white text-sm px-3 py-1 rounded"
+                      className="bg-green-500 text-white text-xs sm:text-sm px-2 sm:px-3 py-1 rounded w-full sm:w-auto"
                       onClick={() => {
                         // Establecemos que vamos a sumar stock
                         handleStockUpdate(producto.id, "sumar"); // Llamamos a la función de actualización de stock

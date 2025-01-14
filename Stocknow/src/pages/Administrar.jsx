@@ -19,8 +19,8 @@ const Users = () => {
     const fetchData = async () => {
       try {
         const [usersResponse, rolesResponse] = await Promise.all([
-          axios.get("http://localhost:8000/api/users"),
-          axios.get("http://localhost:8000/api/roles"),
+          axios.get(`${import.meta.env.VITE_BACKENDURL}/api/users`),
+          axios.get(`${import.meta.env.VITE_BACKENDURL}/api/roles`),
         ]);
         console.log("Users:", usersResponse.data); // Verifica que los usuarios se obtienen correctamente
         console.log("Roles:", rolesResponse.data); // Verifica que los roles se obtienen correctamente
@@ -50,7 +50,7 @@ const Users = () => {
       if (editUser) {
         // Editar usuario
         const response = await axios.put(
-          `http://localhost:8000/api/users/${editUser.id}`,
+          `${import.meta.env.VITE_BACKENDURL}/api/users/${editUser.id}`,
           editUser
         );
         setUsers((prev) =>
@@ -59,7 +59,7 @@ const Users = () => {
       } else {
         // Crear usuario
         const response = await axios.post(
-          "http://localhost:8000/api/users",
+          `${import.meta.env.VITE_BACKENDURL}/api/users`,
           newUser
         );
         setUsers([...users, response.data]);
@@ -76,7 +76,7 @@ const Users = () => {
   // Eliminar usuario
   const handleDeleteUser = async (id) => {
     try {
-      await axios.delete(`http://localhost:8000/api/users/${id}`);
+      await axios.delete(`${import.meta.env.VITE_BACKENDURL}/api/users/${id}`);
       setUsers((prev) => prev.filter((user) => user.id !== id));
     } catch (error) {
       console.error("Error al eliminar usuario:", error);

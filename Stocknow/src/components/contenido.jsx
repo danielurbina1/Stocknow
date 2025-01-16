@@ -182,10 +182,10 @@ const Content = () => {
                 <p className="font-medium text-lg inline-block hover:text-indigo-600 transition duration-500 ease-in-out mb-2">
                   {producto.nombre}
                 </p>
-                <p className="text-sm text-gray-600">
+                <p className="text-sm text-gray-400">
                   Precio: €{producto.precio.toFixed(2)}
                 </p>
-                <p className="text-sm text-gray-600">Stock: {producto.stock}</p>
+                <p className="text-sm text-gray-400">Stock: {producto.stock}</p>
               </div>
               <div className="px-6 py-4">
                 {editingProductId === producto.id ? (

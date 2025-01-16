@@ -14,9 +14,10 @@ return new class extends Migration
         Schema::create('buzones', function (Blueprint $table) {
             $table->id();
             $table->integer('cantidad');
+            $table->integer('operacion'); 
             $table->unsignedBigInteger('jefe_id');
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('producto_id'); 
+            $table->unsignedBigInteger('producto_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('jefe_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('producto_id')->references('id')->on('productos')->onDelete('cascade'); // Relación con productos

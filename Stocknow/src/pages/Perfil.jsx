@@ -94,8 +94,9 @@ const Perfil = () => {
             <ul className="list-disc pl-6 space-y-2">
               {buzonMessages.map((message) => (
                 <li key={message.id}>
-                  <span className="font-bold">{message.user.name}</span> ha
-                  quitado una cantidad de{" "}
+                  <span className="font-bold">{message.user.name}</span>{" "}
+                  {message.operacion === "suma" ? "ha añadido" : "ha quitado"}{" "}
+                  una cantidad de{" "}
                   <span className="font-bold">{message.cantidad}</span> de{" "}
                   <span className="font-bold">{message.producto.nombre}</span>{" "}
                   el día{" "}

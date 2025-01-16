@@ -13,6 +13,7 @@ return new class extends Migration {
             $table->decimal('precio', 8, 2); 
             $table->unsignedBigInteger('pasillo_id'); 
             $table->integer('stock')->default(0); 
+            $table->integer('stock_minimo');
             $table->string('imagen')->nullable();
             $table->timestamps();
 
